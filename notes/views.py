@@ -9,7 +9,6 @@ from django.http import JsonResponse, HttpResponse
 from io import BytesIO
 from django.conf import settings
 from django.template.loader import get_template
-from xhtml2pdf import pisa
 from django.core.signing import BadSignature
 from taggit.models import Tag
 
