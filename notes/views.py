@@ -15,10 +15,7 @@ from taggit.models import Tag
 
 
 def link_callback(uri, rel):
-    """
-    Convert HTML URIs to absolute system paths so xhtml2pdf can access those
-    resources
-    """
+
     # use short variable names
     sUrl = settings.STATIC_URL      # Typically /static/
     sRoot = settings.STATIC_ROOT    # Typically /home/userX/project_static/
@@ -31,7 +28,7 @@ def link_callback(uri, rel):
     elif uri.startswith(sUrl):
         path = os.path.join(sRoot, uri.replace(sUrl, ""))
     else:
-        return uri  # handle absolute uri (ie: http://some.tld/foo.png)
+        return uri
 
     # make sure that file exists
     if not os.path.isfile(path):
@@ -41,38 +38,7 @@ def link_callback(uri, rel):
     return path
 
 
-def render_to_pdf(template_src, context_dict={}):
-    '''
-        Helper function to generate pdf from html
-    '''
-    template = get_template(template_src)
-    html  = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result, link_callback=link_callback)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return HttpResponse("Error Rendering PDF", status=400)
 
-
-def generate_pdf(request, slug):
-    note = get_object_or_404(Note, slug=slug)
-    if note.user != request.user:
-        messages.error(request, 'You are not authenticated to perform this action')
-        return redirect('notes')
-    notes = Note.objects.filter(user=request.user).order_by('-updated_at')[:10]
-    add_note_form = AddNoteForm()
-    context = {
-        'note_detail': note,
-    }
-    pdf = render_to_pdf('note_as_pdf.html', context)
-    if pdf:
-        response = HttpResponse(pdf, content_type='application/pdf')
-        filename = "{}.pdf".format(note.slug)
-        content = "inline; filename={}".format(filename)
-        content = "attachment; filename={}".format(filename)
-        response['Content-Disposition'] = content
-        return response
-    return HttpResponse("Not found")
 
 
 def home(request):

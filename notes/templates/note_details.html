@@ -19,9 +19,7 @@
                             <a class="open-modal" data-url="{% url 'note_details_edit' note_detail.id %}" style="text-decoration: none; color: white" data-toggle="tooltip" title="Edit Note">    
                                 <span class="btn btn-primary" style="border-radius: 0;"><i class="far fa-edit"> </i></span>
                             </a>
-                            <a href="{% url 'note_as_pdf' note_detail.slug %}" style="text-decoration: none; color: white" data-toggle="tooltip" title="Download Note as PDF">    
-                                <span class="btn btn-primary" style="border-radius: 0;"><i class="fa fa-download"> </i></span>
-                            </a>
+
                             <a class="open-delete-modal" data-url="{% url 'confirm_delete_note' note_detail.id %}" data-toggle="tooltip" title="Delete Note">
                                 <span class="btn btn-danger" style="border-radius: 0;"><i class="far fa-trash-alt"></i></span>
                             </a>
@@ -36,9 +34,7 @@
                                     <a class="open-modal dropdown-item" data-url="{% url 'note_details_edit' note_detail.id %}" style="text-decoration: none; color: white" data-toggle="tooltip" title="Edit Note">    
                                         <span class="btn btn-block btn-primary" style="border-radius: 0;"><i class="far fa-edit"></i> Edit</span>
                                     </a>
-                                    <a class="dropdown-item" href="{% url 'note_as_pdf' note_detail.slug %}" style="text-decoration: none; color: white" data-toggle="tooltip" title="Download Note as PDF">    
-                                        <span class="btn btn-block btn-primary" style="border-radius: 0;"><i class="fa fa-download"></i> Download</span>
-                                    </a>
+
                                     <a class="dropdown-item open-delete-modal" data-url="{% url 'confirm_delete_note' note_detail.id %}" data-toggle="tooltip" title="Delete Note">
                                         <span class="btn btn-danger btn-block" style="border-radius: 0;"><i class="far fa-trash-alt"></i> Delete</span>
                                     </a>
@@ -56,12 +52,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <p class="float-right">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="shareable_link" value="{{ absolute_url }}" readonly>
-                                <div class="input-group-append">
-                                    <span id="copy_shareable_link" class="input-group-text"><span data-toggle="tooltip" title="Copy Shareable Link" style="cursor: pointer;"><i class="far fa-copy"> </i></span></span>
-                                </div>
-                            </div>
+
                         </p>
                     </div>
                 </div>
